@@ -25,22 +25,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public void UpdateDesiredTargetSpeed(Vector2 input)
             {
 	            if (input == Vector2.zero) return;
-				if (input.x > 0 || input.x < 0)
-				{
-					//strafe
-					CurrentTargetSpeed = Speed;
-				}
-				if (input.y < 0)
-				{
-					//backwards
-					CurrentTargetSpeed = Speed;
-				}
-				if (input.y > 0)
-				{
-					//forwards
-					//handled last as if strafing and moving forward at the same time forwards speed should take precedence
-					CurrentTargetSpeed = Speed;
-				}
+				CurrentTargetSpeed = Speed;
 #if !MOBILE_INPUT
 	            if (Input.GetKey(RunKey))
 	            {
@@ -75,7 +60,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-        public Camera cam;
+		public Camera cam;
+		public Rigidbody snowball_fab;
         public MovementSettings movementSettings = new MovementSettings();
         public MouseLook mouseLook = new MouseLook();
         public AdvancedSettings advancedSettings = new AdvancedSettings();
@@ -128,11 +114,23 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             RotateView();
 
+			//fire balls
+			if (CrossPlatformInputManager.GetButtonDown("Fire1"))
+			{
+				FireSnowBall ();
+			}
+
             if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
             {
                 m_Jump = true;
             }
         }
+			
+		void FireSnowBall () {
+			Rigidbody snowball = (Rigidbody) Instantiate(snowball_fab, transform.position, transform.rotation);
+			snowball.position = cam.transform.position;
+			snowball.velocity = cam.transform.forward * 10;
+		}
 
 
         private void FixedUpdate()
