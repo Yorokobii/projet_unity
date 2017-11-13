@@ -2,11 +2,11 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Standard Assets\Characters\FirstPersonCharacter\Scripts\RigidbodyFirstPersonController.cs">
     <Files>
-      <File FileName="Assets\Standard Assets\Characters\FirstPersonCharacter\Scripts\RigidbodyFirstPersonController.cs" Line="181" Column="91" />
-      <File FileName="Assets\Scripts\Grabbable_behavier.cs" Line="6" Column="1" />
-      <File FileName="Assets\Scripts\snowball.cs" Line="16" Column="95" />
-      <File FileName="Assets\Scripts\GameLogic.cs" Line="17" Column="18" />
+      <File FileName="Assets\Standard Assets\Characters\FirstPersonCharacter\Scripts\RigidbodyFirstPersonController.cs" Line="245" Column="85" />
+      <File FileName="Assets\Scripts\snowball.cs" Line="21" Column="54" />
+      <File FileName="Assets\Scripts\GameLogic.cs" Line="18" Column="12" />
       <File FileName="Assets\Scripts\Ennemy_AI.cs" Line="18" Column="11" />
+      <File FileName="Assets\Scripts\Ennemy_Take_Damage.cs" Line="16" Column="13" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

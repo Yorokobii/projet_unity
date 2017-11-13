@@ -13,7 +13,7 @@ public class Ennemy_Take_Damage : MonoBehaviour {
 	public void KnockBack(Vector3 vec){
 		vec.y=0;
 		vec.Normalize();
-		vec.y=1;
+		vec.y=0.2f;
 		vec.Normalize();
 		gameObject.transform.parent.gameObject.GetComponent<Rigidbody>().AddForce(vec*500);
 	}
