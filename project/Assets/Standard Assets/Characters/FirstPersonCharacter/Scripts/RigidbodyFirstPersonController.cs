@@ -62,6 +62,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 		public Camera cam;
 		public Rigidbody snowball_fab;
+		public int throw_speed;
+		private GameObject grabbed_object = null;
         public MovementSettings movementSettings = new MovementSettings();
         public MouseLook mouseLook = new MouseLook();
         public AdvancedSettings advancedSettings = new AdvancedSettings();
@@ -117,20 +119,78 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			//fire balls
 			if (CrossPlatformInputManager.GetButtonDown("Fire1"))
 			{
-				FireSnowBall ();
+				if (!grabbed_object)
+					FireSnowBall ();
+				else
+					ThrowObject ();
+			}
+
+			//grab object
+			if (CrossPlatformInputManager.GetButtonDown("Fire2") && !grabbed_object)
+			{
+					GrabObject ();
 			}
 
             if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
             {
                 m_Jump = true;
             }
+
+
+			///
+			///ADDED
+			///
+
+			if (grabbed_object) {
+
+				grabbed_object.transform.position = cam.transform.position;
+				grabbed_object.transform.Translate (new Vector3(0.0f, -0.5f, 1.2f));
+				grabbed_object.transform.rotation = cam.transform.rotation;
+
+			}
+
+			///
+			///
         }
-			
+
+
+
+
+		/// <summary>
+		/// ADDED PART
+		/// </summary>
 		void FireSnowBall () {
 			Rigidbody snowball = (Rigidbody) Instantiate(snowball_fab, transform.position, transform.rotation);
 			snowball.position = cam.transform.position;
 			snowball.velocity = cam.transform.forward * 10;
 		}
+
+		void GrabObject(){
+			RaycastHit hit;
+			if (Physics.Raycast (cam.transform.position, cam.transform.forward, out hit, 100.0f, LayerMask.GetMask ("Grabbable"))) {
+				grabbed_object = hit.collider.gameObject;
+				grabbed_object.GetComponent<Rigidbody> ().useGravity = false;
+				grabbed_object.GetComponent<Collider> ().enabled = false;
+			}
+			
+		}
+
+		void ThrowObject(){
+			grabbed_object.GetComponent<Rigidbody> ().useGravity = true;
+			grabbed_object.GetComponent<Collider> ().enabled = true;
+			grabbed_object.GetComponent<Rigidbody> ().AddForce (cam.transform.forward*throw_speed);
+			grabbed_object = null;
+		}
+
+
+		/// <summary>
+		/// </summary>
+
+
+
+
+
+
 
 
         private void FixedUpdate()
@@ -180,6 +240,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 }
             }
             m_Jump = false;
+
         }
 
 

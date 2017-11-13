@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 6ec90b44b12a65748957c311ff7be490
-timeCreated: 1510530632
+guid: 77d6e2b7ac4c5ed4990b518f0ba80daa
+timeCreated: 1510532386
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
-  - ennemy: {fileID: 54765977712049700, guid: a3360f92dec6814489405ae4b907c753, type: 2}
+  - player: {fileID: 1655828971266954, guid: 20531fbef4e50864cbde93820fd74c7f, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
