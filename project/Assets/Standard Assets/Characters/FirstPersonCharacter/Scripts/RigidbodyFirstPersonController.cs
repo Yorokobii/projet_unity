@@ -169,7 +169,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			RaycastHit hit;
 			if (Physics.Raycast (cam.transform.position, cam.transform.forward, out hit, 100.0f, LayerMask.GetMask ("Grabbable"))) {
 				grabbed_object = hit.collider.gameObject;
-				grabbed_object.GetComponent<Rigidbody> ().useGravity = false;
+                grabbed_object.GetComponent<Rigidbody> ().useGravity = false;
+				grabbed_object.GetComponent<Rigidbody> ().velocity = Vector3().zero;
 				grabbed_object.GetComponent<Collider> ().enabled = false;
 			}
 			
