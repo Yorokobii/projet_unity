@@ -126,9 +126,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			}
 
 			//grab object
-			if (CrossPlatformInputManager.GetButtonDown("Fire2") && !grabbed_object)
+			if (CrossPlatformInputManager.GetButtonDown("Fire2"))
 			{
+                if (!grabbed_object)
 					GrabObject ();
+                else
+                    DropObject ();
 			}
 
             if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
@@ -169,19 +172,31 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			RaycastHit hit;
 			if (Physics.Raycast (cam.transform.position, cam.transform.forward, out hit, 100.0f, LayerMask.GetMask ("Grabbable"))) {
 				grabbed_object = hit.collider.gameObject;
-                grabbed_object.GetComponent<Rigidbody> ().useGravity = false;
-				grabbed_object.GetComponent<Rigidbody> ().velocity = Vector3().zero;
-				grabbed_object.GetComponent<Collider> ().enabled = false;
-			}
-			
-		}
+                //grabbed_object.GetComponent<Rigidbody> ().Sleep();
+                //grabbed_object.GetComponent<Rigidbody> ().useGravity = false;
+                //grabbed_object.GetComponent<Collider> ().enabled = false;
+                grabbed_object.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeAll;
+             
+            }
+            
+        }
 
-		void ThrowObject(){
-			grabbed_object.GetComponent<Rigidbody> ().useGravity = true;
-			grabbed_object.GetComponent<Collider> ().enabled = true;
-			grabbed_object.GetComponent<Rigidbody> ().AddForce (cam.transform.forward*throw_speed);
-			grabbed_object = null;
-		}
+        void ThrowObject(){
+            //grabbed_object.GetComponent<Rigidbody> ().useGravity = true;
+            //grabbed_object.GetComponent<Collider> ().enabled = true;
+            
+		    grabbed_object.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.None;
+            grabbed_object.GetComponent<Rigidbody> ().AddForce (cam.transform.forward*throw_speed);
+            grabbed_object = null;
+        }
+
+        void DropObject(){
+            //grabbed_object.GetComponent<Rigidbody> ().useGravity = true;
+            //grabbed_object.GetComponent<Collider> ().enabled = true;
+            grabbed_object.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.None;
+            
+            grabbed_object = null;
+        }
 
 
 		/// <summary>
