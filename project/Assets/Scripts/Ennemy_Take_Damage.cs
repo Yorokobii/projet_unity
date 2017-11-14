@@ -7,7 +7,7 @@ public class Ennemy_Take_Damage : MonoBehaviour {
 	public int damage_mulitplier;
 
 	public void damage(int value){
-		gameObject.transform.parent.GetComponent<Ennemy_AI> ().HP -= value*damage_mulitplier;
+		gameObject.transform.parent.GetComponent<Walker_AI> ().HP -= value*damage_mulitplier;
 	}
 
 	public void KnockBack(Vector3 vec){

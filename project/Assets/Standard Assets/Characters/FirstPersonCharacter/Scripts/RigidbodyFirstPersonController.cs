@@ -62,6 +62,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		public Camera cam;
 		public Rigidbody snowball_fab;
 		public int throw_speed;
+        public float max_grab_distance=6f;
+        private float grab_distance=0;
 		private GameObject grabbed_object = null;
         public MovementSettings movementSettings = new MovementSettings();
         public MouseLook mouseLook = new MouseLook();
@@ -138,6 +140,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_Jump = true;
             }
 
+            if(grabbed_object){
+                
+            }
+            else
+                grab_distance=0;
+
 
 			///
 			///ADDED
@@ -145,11 +153,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 			if (grabbed_object) {
 
+                float tmp = CrossPlatformInputManager.GetAxis("Mouse ScrollWheel")*10;
+                if (tmp != 0)
+                    grab_distance += tmp;
+                if(grab_distance<0)
+                    grab_distance=0;
+                if(grab_distance>5)
+                    grab_distance=5;
+
 				grabbed_object.transform.position = cam.transform.position;
-				grabbed_object.transform.Translate (new Vector3(0.0f, -0.5f, 1.2f));
+				grabbed_object.transform.Translate (new Vector3(0.0f, -0.5f, 1.2f+grab_distance));
 				grabbed_object.transform.rotation = cam.transform.rotation;
 
 			}
+            else
+                grab_distance=0;
 
 			///
 			///
@@ -169,7 +187,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 		void GrabObject(){
 			RaycastHit hit;
-			if (Physics.Raycast (cam.transform.position, cam.transform.forward, out hit, 100.0f, LayerMask.GetMask ("Grabbable"))) {
+			if (Physics.Raycast (cam.transform.position, cam.transform.forward, out hit, max_grab_distance, LayerMask.GetMask ("Grabbable"))) {
 				grabbed_object = hit.collider.gameObject;
                 grabbed_object.GetComponent<Collider> ().enabled = false;
                 grabbed_object.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeAll;
@@ -210,7 +228,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             Vector2 input = GetInput();
 
 			if ((Mathf.Abs (input.x) > 0f || Mathf.Abs (input.y) > 0f)) {
-				Debug.Log ("bleh.2");
 				// always move along the camera forward as it is the direction that it being aimed at
 				Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
 				desiredMove = Vector3.ProjectOnPlane (desiredMove, m_GroundContactNormal).normalized;
@@ -224,7 +241,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				}
 			} else {
 				if (m_Jumping) {
-					Debug.Log ("bleh.");
 					m_RigidBody.velocity = new Vector3(0, m_RigidBody.velocity.y, 0);
 					
 				}
