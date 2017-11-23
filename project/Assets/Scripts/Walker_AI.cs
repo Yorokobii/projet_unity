@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Walker_AI : MonoBehaviour {
-
-	private GameObject player;
-	public int HP;
+public class Walker_AI : Enemy {
 
 	// Use this for initialization
 	void Start () {
@@ -19,10 +16,6 @@ public class Walker_AI : MonoBehaviour {
 		Vector3 dir = player.transform.position - GetComponent<Rigidbody>().transform.position;
 		dir.y = 0;
 		dir.Normalize ();
-		transform.Translate (dir*Time.deltaTime*2);
-	}
-
-	void die(){
-		Destroy (gameObject);
+		transform.Translate (dir*Time.deltaTime*speed);
 	}
 }

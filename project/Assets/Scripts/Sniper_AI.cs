@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sniper_AI : MonoBehaviour {
-
-	private GameObject player;
-	public int HP;
+public class Sniper_AI : Enemy {
 
 	// Use this for initialization
 	void Start () {
@@ -17,9 +14,5 @@ public class Sniper_AI : MonoBehaviour {
 		if (HP <= 0)
 			die ();
 		//TO DO : FAIRE TIRER SUR LE JOUEUR
-	}
-
-	void die(){
-		Destroy (gameObject);
 	}
 }

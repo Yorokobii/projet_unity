@@ -19,7 +19,7 @@ public class GameLogic : MonoBehaviour {
 		if (((int)Time.time) % 5 > 0) {
 			if (bennemy) {
 				//Instantiate (ennemy, new Vector3 (0.0f, 1.5f, 0.0f), Quaternion.identity);
-				Instantiate (Cube, new Vector3 (0.0f, 1.5f, 0.0f), Quaternion.identity);
+				//Instantiate (Cube, new Vector3 (0.0f, 1.5f, 0.0f), Quaternion.identity);
 				bennemy = false;
 			}
 		} else {

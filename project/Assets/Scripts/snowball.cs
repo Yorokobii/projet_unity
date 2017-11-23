@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class snowball : MonoBehaviour {
+	private int x;
 
 	// Use this for initialization
 	void Start () {
@@ -15,10 +16,18 @@ public class snowball : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) { //other is the other object colliding with the snowball
 		//Damage other if ennemy
-		if (other.CompareTag ("Ennemy")){
+		if (other.CompareTag ("Head") || other.CompareTag ("Body")){
 			//Destroy (other); //use that one for cool effect but doesn't destroy the ennemy
-			other.GetComponent<Ennemy_Take_Damage>().damage(1);
-			other.GetComponent<Ennemy_Take_Damage>().KnockBack(gameObject.GetComponent<Rigidbody>().velocity);
+			if (other.CompareTag ("Head")) {
+				Debug.Log ("Headshot");
+				x = other.transform.parent.GetComponent<Enemy> ().damage_head;
+			}
+			else if (other.CompareTag ("Body")) {
+				Debug.Log ("Bodyshot");
+				x = other.transform.parent.GetComponent<Enemy> ().damage_body;
+			}
+			other.transform.parent.GetComponent<Enemy> ().damage (x);
+			other.transform.parent.GetComponent<Enemy> ().KnockBack (gameObject.GetComponent<Rigidbody> ().velocity);	
 		}
 		Destroy(gameObject);
 	}

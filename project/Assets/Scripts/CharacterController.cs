@@ -103,9 +103,7 @@ public class CharacterController : MonoBehaviour {
 			Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
 			desiredMove = Vector3.ProjectOnPlane (desiredMove, m_GroundContactNormal).normalized;
 
-			desiredMove.x = desiredMove.x;
-			desiredMove.z = desiredMove.z;
-			desiredMove.y = desiredMove.y;
+
 			if(Input.GetKey(RunKey)) desiredMove*=RunMultiplier;
 			m_RigidBody.transform.Translate (desiredMove);
 		}
