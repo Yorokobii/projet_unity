@@ -1,15 +1,9 @@
 fileFormatVersion: 2
 guid: 81c9795a96c094f4cbde4d65546aa9b2
-timeCreated: 1510530819
-licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences:
-  - cam: {fileID: 20762601335592922, guid: 20531fbef4e50864cbde93820fd74c7f, type: 2}
-  - snowball_fab: {fileID: 54870940440659134, guid: 0472489d38fcade4eaebc2eb9ff9aa43,
-      type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 
-  assetBundleVariant: 

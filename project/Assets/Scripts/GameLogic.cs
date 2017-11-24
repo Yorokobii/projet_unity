@@ -10,7 +10,7 @@ public class GameLogic : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Physics.IgnoreLayerCollision (8, 9);
+		
 	}
 	
 	// Update is called once per frame

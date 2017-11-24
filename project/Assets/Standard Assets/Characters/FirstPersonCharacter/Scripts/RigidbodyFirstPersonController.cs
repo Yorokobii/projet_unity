@@ -11,7 +11,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [Serializable]
         public class MovementSettings
         {
-            public float Speed = 8.0f;   // Speed when walking forward
+            public float ForwardSpeed = 8.0f;   // Speed when walking forward
+            public float BackwardSpeed = 4.0f;  // Speed when walking backwards
+            public float StrafeSpeed = 4.0f;    // Speed when walking sideways
             public float RunMultiplier = 2.0f;   // Speed when sprinting
 	        public KeyCode RunKey = KeyCode.LeftShift;
             public float JumpForce = 30f;
@@ -25,7 +27,22 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public void UpdateDesiredTargetSpeed(Vector2 input)
             {
 	            if (input == Vector2.zero) return;
-				CurrentTargetSpeed = Speed;
+				if (input.x > 0 || input.x < 0)
+				{
+					//strafe
+					CurrentTargetSpeed = StrafeSpeed;
+				}
+				if (input.y < 0)
+				{
+					//backwards
+					CurrentTargetSpeed = BackwardSpeed;
+				}
+				if (input.y > 0)
+				{
+					//forwards
+					//handled last as if strafing and moving forward at the same time forwards speed should take precedence
+					CurrentTargetSpeed = ForwardSpeed;
+				}
 #if !MOBILE_INPUT
 	            if (Input.GetKey(RunKey))
 	            {
@@ -59,12 +76,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             public float shellOffset; //reduce the radius by that ratio to avoid getting stuck in wall (a value of 0.1f is nice)
         }
 
-		public Camera cam;
-		public Rigidbody snowball_fab;
-		public int throw_speed;
-        public float max_grab_distance=6f;
-        private float grab_distance=0;
-		private GameObject grabbed_object = null;
+
+        public Camera cam;
         public MovementSettings movementSettings = new MovementSettings();
         public MouseLook mouseLook = new MouseLook();
         public AdvancedSettings advancedSettings = new AdvancedSettings();
@@ -117,109 +130,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             RotateView();
 
-			//fire balls
-			if (CrossPlatformInputManager.GetButtonDown("Fire1"))
-			{
-				if (!grabbed_object)
-					FireSnowBall ();
-				else
-					ThrowObject ();
-			}
-
-			//grab object
-			if (CrossPlatformInputManager.GetButtonDown("Fire2"))
-			{
-                if (!grabbed_object)
-					GrabObject ();
-                else
-                    DropObject ();
-			}
-
             if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
             {
                 m_Jump = true;
             }
-
-            if(grabbed_object){
-                
-            }
-            else
-                grab_distance=0;
-
-
-			///
-			///ADDED
-			///
-
-			if (grabbed_object) {
-
-                float tmp = CrossPlatformInputManager.GetAxis("Mouse ScrollWheel")*10;
-                if (tmp != 0)
-                    grab_distance += tmp;
-                if(grab_distance<0)
-                    grab_distance=0;
-                if(grab_distance>5)
-                    grab_distance=5;
-
-				grabbed_object.transform.position = cam.transform.position;
-				grabbed_object.transform.Translate (new Vector3(0.0f, -0.5f, 1.2f+grab_distance));
-				grabbed_object.transform.rotation = cam.transform.rotation;
-
-			}
-            else
-                grab_distance=0;
-
-			///
-			///
         }
-
-
-
-
-		/// <summary>
-		/// ADDED PART
-		/// </summary>
-		void FireSnowBall () {
-			Rigidbody snowball = (Rigidbody) Instantiate(snowball_fab, transform.position, transform.rotation);
-			snowball.position = cam.transform.position;
-			snowball.velocity = cam.transform.forward * 10;
-		}
-
-		void GrabObject(){
-			RaycastHit hit;
-			if (Physics.Raycast (cam.transform.position, cam.transform.forward, out hit, max_grab_distance, LayerMask.GetMask ("Grabbable"))) {
-				grabbed_object = hit.collider.gameObject;
-                grabbed_object.GetComponent<Collider> ().enabled = false;
-                grabbed_object.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeAll;
-             
-            }
-            
-        }
-
-        void ThrowObject(){
-            grabbed_object.GetComponent<Collider> ().enabled = true;
-            
-		    grabbed_object.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.None;
-            grabbed_object.GetComponent<Rigidbody> ().AddForce (cam.transform.forward*throw_speed);
-            grabbed_object = null;
-        }
-
-        void DropObject(){
-            grabbed_object.GetComponent<Collider> ().enabled = true;
-            grabbed_object.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.None;
-            
-            grabbed_object = null;
-        }
-
-
-		/// <summary>
-		/// </summary>
-
-
-
-
-
-
 
 
         private void FixedUpdate()
@@ -227,24 +142,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
             GroundCheck();
             Vector2 input = GetInput();
 
-			if ((Mathf.Abs (input.x) > 0f || Mathf.Abs (input.y) > 0f)) {
-				// always move along the camera forward as it is the direction that it being aimed at
-				Vector3 desiredMove = cam.transform.forward * input.y + cam.transform.right * input.x;
-				desiredMove = Vector3.ProjectOnPlane (desiredMove, m_GroundContactNormal).normalized;
+            if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon) && (advancedSettings.airControl || m_IsGrounded))
+            {
+                // always move along the camera forward as it is the direction that it being aimed at
+                Vector3 desiredMove = cam.transform.forward*input.y + cam.transform.right*input.x;
+                desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
 
-				desiredMove.x = desiredMove.x * movementSettings.CurrentTargetSpeed;
-				desiredMove.z = desiredMove.z * movementSettings.CurrentTargetSpeed;
-				desiredMove.y = desiredMove.y * movementSettings.CurrentTargetSpeed;
-				if (m_RigidBody.velocity.sqrMagnitude <
-				    (movementSettings.CurrentTargetSpeed * movementSettings.CurrentTargetSpeed)) {
-					m_RigidBody.AddForce (desiredMove * SlopeMultiplier (), ForceMode.Impulse);
-				}
-			} else {
-				if (m_Jumping) {
-					m_RigidBody.velocity = new Vector3(0, m_RigidBody.velocity.y, 0);
-					
-				}
-			}
+                desiredMove.x = desiredMove.x*movementSettings.CurrentTargetSpeed;
+                desiredMove.z = desiredMove.z*movementSettings.CurrentTargetSpeed;
+                desiredMove.y = desiredMove.y*movementSettings.CurrentTargetSpeed;
+                if (m_RigidBody.velocity.sqrMagnitude <
+                    (movementSettings.CurrentTargetSpeed*movementSettings.CurrentTargetSpeed))
+                {
+                    m_RigidBody.AddForce(desiredMove*SlopeMultiplier(), ForceMode.Impulse);
+                }
+            }
 
             if (m_IsGrounded)
             {
@@ -258,20 +170,20 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     m_Jumping = true;
                 }
 
-                if (!m_Jumping && Mathf.Abs(input.x) < 0f && Mathf.Abs(input.y) < 0f)
+                if (!m_Jumping && Mathf.Abs(input.x) < float.Epsilon && Mathf.Abs(input.y) < float.Epsilon && m_RigidBody.velocity.magnitude < 1f)
                 {
-					m_RigidBody.velocity = Vector3.zero;
+                    m_RigidBody.Sleep();
                 }
             }
             else
             {
                 m_RigidBody.drag = 0f;
-				if (m_PreviouslyGrounded && !m_Jumping) {
-					StickToGroundHelper ();
-				}
+                if (m_PreviouslyGrounded && !m_Jumping)
+                {
+                    StickToGroundHelper();
+                }
             }
             m_Jump = false;
-
         }
 
 
