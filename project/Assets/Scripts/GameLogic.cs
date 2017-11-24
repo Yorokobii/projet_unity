@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class GameLogic : MonoBehaviour {
 
-	public GameObject ennemy;
+	public GameObject enemy;
 	public GameObject Cube;
-	private bool bennemy=true;
+	private bool benemy=true;
 
 	// Use this for initialization
 	void Start () {
@@ -17,13 +17,13 @@ public class GameLogic : MonoBehaviour {
 	void Update () {
 		//Debug.Log(Time.time%5);
 		if (((int)Time.time) % 5 > 0) {
-			if (bennemy) {
-				//Instantiate (ennemy, new Vector3 (0.0f, 1.5f, 0.0f), Quaternion.identity);
+			if (benemy) {
+				//Instantiate (enemy, new Vector3 (0.0f, 1.5f, 0.0f), Quaternion.identity);
 				//Instantiate (Cube, new Vector3 (0.0f, 1.5f, 0.0f), Quaternion.identity);
-				bennemy = false;
+				benemy = false;
 			}
 		} else {
-			bennemy = true;
+			benemy = true;
 		}
 	}
 }

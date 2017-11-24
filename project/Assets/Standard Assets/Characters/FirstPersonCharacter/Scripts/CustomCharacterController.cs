@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets.Characters.FirstPerson
@@ -83,7 +84,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		public float max_grab_distance = 6.0f;
 		private float m_grab_distance = 0.0f;
 		private GameObject m_grabbed_object = null;
-		private Transform m_reset_transform;
+
+		public int HP;
+
+		private Vector2 m_reset_position;
+		private Quaternion m_reset_rotation;
 
 		public MovementSettings movementSettings = new MovementSettings();
 		public MouseLook mouseLook = new MouseLook();
@@ -127,8 +132,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 		private void Start()
 		{
-			m_reset_transform = transform;
+			m_reset_position = transform.position;
+			m_reset_rotation = transform.rotation;
+
 			Physics.IgnoreLayerCollision (8, 9);
+
 			m_RigidBody = GetComponent<Rigidbody>();
 			m_Capsule = GetComponent<CapsuleCollider>();
 			mouseLook.Init (transform, cam.transform);
@@ -306,7 +314,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		}
 
 		/// <summary>
-		/// ADDED
+		/// ADDED BY GUILLAUME BOEHM
 		/// </summary>
 
 		void FireSnowBall(){
@@ -338,6 +346,26 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			m_grabbed_object.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.None;
 
 			m_grabbed_object = null;
+		}
+
+		public void respawn(){
+			GetComponent<Rigidbody> ().velocity = Vector3.zero;
+			transform.position = m_reset_position;
+			transform.rotation = m_reset_rotation;
+		}
+
+		public void damage(int value){
+			HP -= value;
+			if (HP <= 0)
+				Die ();
+		}
+
+		private void Die(){
+			SceneManager.LoadScene (SceneManager.GetActiveScene().name);
+		}
+
+		public void KnockBack(Vector3 vel){
+			GetComponent<Rigidbody> ().AddForce (vel, ForceMode.Impulse);
 		}
 
 		/// END ADDED

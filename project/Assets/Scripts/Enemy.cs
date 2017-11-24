@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class Enemy : MonoBehaviour {
 	public GameObject player;
@@ -34,7 +35,7 @@ public class Enemy : MonoBehaviour {
 
 		if (other.gameObject.CompareTag ("Character")) {
 			KnockBack (-(gameObject.GetComponent<Rigidbody> ().velocity));
-			//other.GetComponent<CustomCharacterController>.damage (dmg);
+			other.gameObject.GetComponent<CustomCharacterController>().damage (dmg);
 		}
 	}
 
