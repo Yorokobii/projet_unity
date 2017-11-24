@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour {
 	public GameObject player;
 	public int HP;
 	public int speed;
+	public int dmg;
 	public int damage_body;
 	public int damage_head;
 
@@ -26,6 +27,15 @@ public class Enemy : MonoBehaviour {
 
 	public void damage(int value){
 		HP -= value;
+	}
+
+	public void OnCollisionEnter(Collision other)
+	{
+
+		if (other.gameObject.CompareTag ("Character")) {
+			KnockBack (-(gameObject.GetComponent<Rigidbody> ().velocity));
+			//other.GetComponent<CustomCharacterController>.damage (dmg);
+		}
 	}
 
 	public void KnockBack(Vector3 vec){
