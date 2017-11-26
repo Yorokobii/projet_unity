@@ -59,6 +59,8 @@
      <Compile Include="Assets\Scripts\GrabbableBehavior.cs" />
      <Compile Include="Assets\Scripts\Respawner.cs" />
      <Compile Include="Assets\Scripts\snowball.cs" />
+     <Compile Include="Assets\Scripts\Teleport.cs" />
+     <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
  <Reference Include="UnityEngine.UI">
