@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GrabbableBehavior : MonoBehaviour {
 
-	private Vector2 m_reset_position;
+	private Vector3 m_reset_position;
 	private Quaternion m_reset_rotation;
 	public int damage = 1;
 

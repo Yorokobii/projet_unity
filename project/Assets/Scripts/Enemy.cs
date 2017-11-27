@@ -4,26 +4,33 @@ using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 
 public class Enemy : MonoBehaviour {
-	public GameObject player;
+	private GameObject m_player;
 	public int HP;
 	public int speed;
 	public int dmg;
 	public int damage_body;
 	public int damage_head;
+	public int range;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
+		m_player = GameObject.Find("Character");
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void Update()
+	{
 		if (HP <= 0)
-			die ();
-		Vector3 dir = player.transform.position - GetComponent<Rigidbody>().transform.position;
+			die();
+		Vector3 dir = m_player.transform.position - GetComponent<Rigidbody>().transform.position;
 		dir.y = 0;
-		dir.Normalize ();
-		transform.Translate (dir*Time.deltaTime*(speed/100));
-	}
+		if (dir.magnitude < range)
+		{
+			dir.Normalize();
+			transform.Translate(dir * Time.deltaTime * (speed / 100));
+		}
+}
 
 	public void damage(int value){
 		HP -= value;

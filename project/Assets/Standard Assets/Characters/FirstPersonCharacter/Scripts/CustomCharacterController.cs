@@ -90,8 +90,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		public GameObject object_snap_point;
 		private Vector3 snap_position;
 		public KeyCode RotateObjectKey = KeyCode.R;
-//		private bool m_rotate_object;
-		private Vector2 m_reset_position;
+		private Vector3 m_reset_position;
 		private Quaternion m_reset_rotation;
 
 		public MovementSettings movementSettings = new MovementSettings();
@@ -140,6 +139,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			snap_position = object_snap_point.transform.localPosition;
 			m_reset_position = transform.position;
 			m_reset_rotation = transform.rotation;
+			
+			Debug.Log(m_reset_position);
 
 			Physics.IgnoreLayerCollision (8, 9);
 
