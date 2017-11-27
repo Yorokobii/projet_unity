@@ -13,7 +13,6 @@ public class Enemy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player = GameObject.Find ("Character");
 	}
 
 	// Update is called once per frame
@@ -28,6 +27,7 @@ public class Enemy : MonoBehaviour {
 
 	public void damage(int value){
 		HP -= value;
+		Debug.Log (value);
 	}
 
 	public void OnCollisionEnter(Collision other)
