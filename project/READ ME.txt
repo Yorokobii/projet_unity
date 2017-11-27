@@ -1,0 +1,20 @@
+"Ok d'accord entrer entrez entrée ok fin" est un First Person Shooter à vagues où le but est de tuer tous les redoutables cylindres rouges à l'aide des boules de neige magiques (clic gauche).
+
+Les ennemis présents dans la version alpha sont:
+-Le Walker, un cylindre qui, une fois détecté le personnage, marche vers lui en essayant de lui faire des dégâts corps-à-corps;
+-Le Runner, une sorte de walker plus athlétique et plus maigre qui court au lieu de marcher;
+-Le Gros Porc, une sorte de walker moins athlétique, plus gros et plus résistant, qui marche plus lentement, mais qui fait plus de dégâts et qui est uniquement vulnérable à la tête.
+
+Le décor est entièrement en gris/blanc, à l'exception des objets verts qui permettent une intéraction avec le joueur pour pouvoir atteindre des plateformes autrement inaccessibles. Une fois l'objet saisi (clic droit), le joueur peut:
+-les tourner (R);
+-les lâcher (clic droit à nouveau);
+-les lancer pour faire des dégâts aux ennemis (clic gauche).
+
+Dans la version alpha il n'y a pas encore d'écran de victoire ou défaite, donc la scène se reset en cas de mort.
+
+Les ajouts futurs comprendront:
+-Un pathfinding et une meilleure IA pour les ennemies;
+-D'autres niveaux utilisant aussi d'autres types de sols;
+-D'autres ennemis, comme des snipers ou même des boss;
+-Un système de munitions, avec des bonus cachés dans les niveaux pour recharger les munitions;
+-Et une histoire passionante!
