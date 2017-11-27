@@ -17,4 +17,8 @@ Les ajouts futurs comprendront:
 -D'autres niveaux utilisant aussi d'autres types de sols;
 -D'autres ennemis, comme des snipers ou même des boss;
 -Un système de munitions, avec des bonus cachés dans les niveaux pour recharger les munitions;
+-Les contrôles seront améliorés;
+-Ajout de bon nombre d'affichages pour l'utilisateur;
 -Et une histoire passionante!
+
+La scène la plus complète est test_map2. Veuillez la lancer pour tester le jeu.

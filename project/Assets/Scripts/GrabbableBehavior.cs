@@ -6,7 +6,6 @@ public class GrabbableBehavior : MonoBehaviour {
 
 	private Vector3 m_reset_position;
 	private Quaternion m_reset_rotation;
-	public int damage = 1;
 
 	// Use this for initialization
 	void Start () {
@@ -26,12 +25,10 @@ public class GrabbableBehavior : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision collision){
-		if(collision.relativeVelocity.magnitude >= 5.0f){
-			if(collision.gameObject.CompareTag ("Body")){
-				collision.transform.parent.gameObject.GetComponent<Enemy> ().damage(collision.transform.parent.gameObject.GetComponent<Enemy> ().damage_head);
-			} else if(collision.gameObject.CompareTag ("Head")){
-				collision.transform.parent.gameObject.GetComponent<Enemy> ().damage(collision.transform.parent.gameObject.GetComponent<Enemy> ().damage_body);
-			}
+		if(gameObject.layer == 0){
+			if(collision.gameObject.CompareTag ("Enemy"))
+				collision.gameObject.GetComponent<Enemy> ().damage(collision.gameObject.GetComponent<Enemy> ().damage_body);
+			gameObject.layer = LayerMask.NameToLayer("Grabbable");
 		}
 	}
 }

@@ -363,6 +363,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			m_grabbed_object.GetComponentInParent<Rigidbody> ().constraints = RigidbodyConstraints.None;
 			m_grabbed_object.GetComponentInParent<Rigidbody> ().AddForce (cam.transform.forward * throw_speed);
 
+			m_grabbed_object.layer = 0;
+			
 			m_grabbed_object = null;
 			object_snap_point.transform.localRotation = Quaternion.identity;
 		}
