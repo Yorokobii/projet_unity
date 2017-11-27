@@ -87,6 +87,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 		public int HP;
 
+		public GameObject object_snap_point;
+		private Vector3 snap_position;
+		public KeyCode RotateObjectKey = KeyCode.R;
+//		private bool m_rotate_object;
 		private Vector2 m_reset_position;
 		private Quaternion m_reset_rotation;
 
@@ -132,6 +136,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 		private void Start()
 		{
+
+			snap_position = object_snap_point.transform.localPosition;
 			m_reset_position = transform.position;
 			m_reset_rotation = transform.rotation;
 
@@ -145,7 +151,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 		private void Update()
 		{
-			RotateView();
+
+			if (!m_grabbed_object || !Input.GetKey(RotateObjectKey))
+				RotateView ();
+			else{
+
+				float zRot = CrossPlatformInputManager.GetAxis("Mouse X");
+				float xRot = CrossPlatformInputManager.GetAxis("Mouse Y");
+
+				object_snap_point.transform.Rotate(new Vector3 (xRot, 0, zRot));
+
+			}
 
 			//FireBalls
 			if (CrossPlatformInputManager.GetButtonDown ("Fire1")) {
@@ -177,9 +193,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				if (m_grab_distance > 5)
 					m_grab_distance = 5;
 
-				m_grabbed_object.transform.position = cam.transform.position;
-				m_grabbed_object.transform.Translate (new Vector3 (0.0f, -0.5f, 1.2f + m_grab_distance));
-				m_grabbed_object.transform.rotation = cam.transform.rotation;
+				object_snap_point.transform.localPosition = new Vector3 (snap_position.x, snap_position.y, snap_position.z+m_grab_distance);
+				m_grabbed_object.transform.position = object_snap_point.transform.position;
+				m_grabbed_object.transform.rotation = object_snap_point.transform.rotation;
 			} else
 				m_grab_distance = 0;
 		}
@@ -326,26 +342,38 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		void GrabObject(){
 			RaycastHit hit;
 			if (Physics.Raycast (cam.transform.position, cam.transform.forward, out hit, max_grab_distance, LayerMask.GetMask ("Grabbable"))) {
-				m_grabbed_object = hit.collider.gameObject;
-				m_grabbed_object.GetComponent<Collider> ().enabled = false;
-				m_grabbed_object.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+				m_grabbed_object = hit.collider.GetComponentInParent<Rigidbody>().gameObject;
+				foreach(Collider c in m_grabbed_object.GetComponentInParent<Rigidbody>().gameObject.GetComponentsInChildren<Collider>() ){
+					c.enabled = false;
+				}
+				m_grabbed_object.GetComponentInParent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+				object_snap_point.transform.localRotation = m_grabbed_object.transform.rotation;
 			}
 		}
 
 		void ThrowObject(){
-			m_grabbed_object.GetComponent<Collider> ().enabled = true;
+			object_snap_point.transform.localPosition = new Vector3 (snap_position.x, snap_position.y, snap_position.z);
+			m_grabbed_object.transform.position = object_snap_point.transform.position;
 
-			m_grabbed_object.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.None;
-			m_grabbed_object.GetComponent<Rigidbody> ().AddForce (cam.transform.forward * throw_speed);
+			foreach(Collider c in m_grabbed_object.GetComponentInParent<Rigidbody>().gameObject.GetComponentsInChildren<Collider>() ){
+				c.enabled = true;
+			}
+
+			m_grabbed_object.GetComponentInParent<Rigidbody> ().constraints = RigidbodyConstraints.None;
+			m_grabbed_object.GetComponentInParent<Rigidbody> ().AddForce (cam.transform.forward * throw_speed);
 
 			m_grabbed_object = null;
+			object_snap_point.transform.localRotation = Quaternion.identity;
 		}
 
 		void DropObject(){
-			m_grabbed_object.GetComponent<Collider> ().enabled = true;
-			m_grabbed_object.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.None;
+			foreach(Collider c in m_grabbed_object.GetComponentInParent<Rigidbody>().gameObject.GetComponentsInChildren<Collider>() ){
+				c.enabled = true;
+			}
+			m_grabbed_object.GetComponentInParent<Rigidbody> ().constraints = RigidbodyConstraints.None;
 
 			m_grabbed_object = null;
+			object_snap_point.transform.localRotation = Quaternion.identity;
 		}
 
 		public void respawn(){
