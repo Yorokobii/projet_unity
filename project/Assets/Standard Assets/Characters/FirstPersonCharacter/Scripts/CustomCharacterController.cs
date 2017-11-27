@@ -139,8 +139,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			snap_position = object_snap_point.transform.localPosition;
 			m_reset_position = transform.position;
 			m_reset_rotation = transform.rotation;
-			
-			Debug.Log(m_reset_position);
 
 			Physics.IgnoreLayerCollision (8, 9);
 
