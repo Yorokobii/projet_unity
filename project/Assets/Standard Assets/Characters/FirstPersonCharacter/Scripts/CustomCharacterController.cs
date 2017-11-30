@@ -12,12 +12,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		[Serializable]
 		public class MovementSettings
 		{
-			public float ForwardSpeed = 8.0f;   // Speed when walking forward
-			public float BackwardSpeed = 4.0f;  // Speed when walking backwards
-			public float StrafeSpeed = 4.0f;    // Speed when walking sideways
+			public float Speed = 8.0f;
+			public float SpeedBonus = 0f;
+			public float SpeedTerrain = 0f;
 			public float RunMultiplier = 2.0f;   // Speed when sprinting
 			public KeyCode RunKey = KeyCode.LeftShift;
 			public float JumpForce = 30f;
+			public float JumpForceBonus = 0f;
+			public float JumpForceTerrain = 0f;
 			public AnimationCurve SlopeCurveModifier = new AnimationCurve(new Keyframe(-90.0f, 1.0f), new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
 			[HideInInspector] public float CurrentTargetSpeed = 8f;
 
@@ -31,18 +33,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				if (input.x > 0 || input.x < 0)
 				{
 					//strafe
-					CurrentTargetSpeed = StrafeSpeed;
+					CurrentTargetSpeed = Speed+SpeedBonus+SpeedTerrain;
 				}
 				if (input.y < 0)
 				{
 					//backwards
-					CurrentTargetSpeed = BackwardSpeed;
+					CurrentTargetSpeed = Speed+SpeedBonus+SpeedTerrain;
 				}
 				if (input.y > 0)
 				{
 					//forwards
 					//handled last as if strafing and moving forward at the same time forwards speed should take precedence
-					CurrentTargetSpeed = ForwardSpeed;
+					CurrentTargetSpeed = Speed+SpeedBonus+SpeedTerrain;
 				}
 				#if !MOBILE_INPUT
 				if (Input.GetKey(RunKey))
@@ -86,6 +88,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		private GameObject m_grabbed_object = null;
 
 		public int HP;
+		public float FireVelocity = 10f;
+		public int AmmoMax = 10;
+		private int m_current_ammo;
+		public float RateOfFire = 1f;
+		private float m_rate_of_fire_timer = 0f;
 
 		public GameObject object_snap_point;
 		private Vector3 snap_position;
@@ -135,7 +142,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 		private void Start()
 		{
-
+			m_current_ammo = AmmoMax;
+			m_rate_of_fire_timer = 0;
 			snap_position = object_snap_point.transform.localPosition;
 			m_reset_position = transform.position;
 			m_reset_rotation = transform.rotation;
@@ -232,7 +240,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				{
 					m_RigidBody.drag = 0f;
 					m_RigidBody.velocity = new Vector3(m_RigidBody.velocity.x, 0f, m_RigidBody.velocity.z);
-					m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce, 0f), ForceMode.Impulse);
+					m_RigidBody.AddForce(new Vector3(0f, movementSettings.JumpForce+movementSettings.JumpForceBonus+movementSettings.JumpForceTerrain, 0f), ForceMode.Impulse);
 					m_Jumping = true;
 				}
 
@@ -332,13 +340,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		/// ADDED BY GUILLAUME BOEHM
 		/// </summary>
 
-		void FireSnowBall(){
-			GameObject snowball = (GameObject)Instantiate (snowball_prefab, transform.position, transform.rotation);
-			snowball.transform.position = cam.transform.position;
-			snowball.GetComponent<Rigidbody> ().velocity = cam.transform.forward * 10;
+		void FireSnowBall()
+		{
+			if (GetAmmo() > 0 && Time.time > m_rate_of_fire_timer)
+			{
+				m_rate_of_fire_timer = Time.time + RateOfFire;
+				GameObject snowball = (GameObject) Instantiate(snowball_prefab, transform.position, transform.rotation);
+				snowball.transform.position = cam.transform.position;
+				snowball.GetComponent<Rigidbody>().velocity = cam.transform.forward * FireVelocity;
+				m_current_ammo--;
+				Debug.Log(m_current_ammo.ToString());
+			}
 		}
 
 		void GrabObject(){
+			SetAmmo(AmmoMax);
 			RaycastHit hit;
 			if (Physics.Raycast (cam.transform.position, cam.transform.forward, out hit, max_grab_distance, LayerMask.GetMask ("Grabbable"))) {
 				m_grabbed_object = hit.collider.GetComponentInParent<Rigidbody>().gameObject;
@@ -397,6 +413,24 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			GetComponent<Rigidbody> ().AddForce (vel, ForceMode.Impulse);
 		}
 
-		/// END ADDED
+		public int GetAmmo()
+		{
+			return m_current_ammo;
+		}
+
+		public void SetAmmo(int value)
+		{
+			m_current_ammo = value >= AmmoMax ? AmmoMax : value;
+		}
+		
+		public void AddAmmo(int value)
+		{
+			value = m_current_ammo + value;
+			m_current_ammo = value >= AmmoMax ? AmmoMax : value;
+		}
+		
+		
+
+		// END ADDED
 	}
 }
