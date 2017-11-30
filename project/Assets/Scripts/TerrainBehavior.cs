@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public enum TypeTerrain
 {
 	rapide,
 	lent, 
 	glissant,
-	grimpant
+	grimpant,
+	rebondissant
 }
 public class TerrainBehavior : MonoBehaviour {
 
@@ -20,23 +22,29 @@ public class TerrainBehavior : MonoBehaviour {
 			switch (typeTerrain)
 			{
 				case TypeTerrain.rapide:
-					{
-						Debug.Log ("rapide");
+				{
+					other.gameObject.GetComponent<CustomCharacterController> ().movementSettings.SpeedTerrain 
+					= other.gameObject.GetComponent<CustomCharacterController> ().movementSettings.Speed*2;
 						break;
 					}
 				case TypeTerrain.lent:
-					{					
-						Debug.Log ("lent");
+					{
+						other.gameObject.GetComponent<CustomCharacterController> ().movementSettings.SpeedTerrain 
+						= -other.gameObject.GetComponent<CustomCharacterController> ().movementSettings.Speed/2;
 						break;
 					}
 				case TypeTerrain.glissant:
 					{					
-						Debug.Log ("glissant");
 						break;
 					}
 				case TypeTerrain.grimpant:
 					{					
-						Debug.Log ("grimpant");
+						break;
+					}
+				case TypeTerrain.rebondissant:
+					{					
+						other.gameObject.GetComponent<CustomCharacterController> ().movementSettings.JumpForceTerrain 
+						= other.gameObject.GetComponent<CustomCharacterController> ().movementSettings.JumpForce/2;
 						break;
 					}
 			}
@@ -51,22 +59,28 @@ public class TerrainBehavior : MonoBehaviour {
 			{
 			case TypeTerrain.rapide:
 				{
-					Debug.Log ("rapide");
+					other.gameObject.GetComponent<CustomCharacterController> ().movementSettings.SpeedTerrain 
+					= 0;
 					break;
 				}
 			case TypeTerrain.lent:
-				{					
-					Debug.Log ("lent");
+				{
+					other.gameObject.GetComponent<CustomCharacterController> ().movementSettings.SpeedTerrain 
+					= 0;
 					break;
 				}
 			case TypeTerrain.glissant:
 				{					
-					Debug.Log ("glissant");
 					break;
 				}
 			case TypeTerrain.grimpant:
 				{					
-					Debug.Log ("grimpant");
+					break;
+				}
+			case TypeTerrain.rebondissant:
+				{					
+					other.gameObject.GetComponent<CustomCharacterController> ().movementSettings.JumpForceTerrain 
+					= 0;
 					break;
 				}
 			}

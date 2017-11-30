@@ -1,16 +1,18 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\TerrainBehavior.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BonusBehavior.cs">
     <Files>
       <File FileName="Assets\Scripts\Enemy.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Respawner.cs" Line="1" Column="1" />
-      <File FileName="Assets\Standard Assets\Characters\FirstPersonCharacter\Scripts\CustomCharacterController.cs" Line="258" Column="32" />
+      <File FileName="Assets\Standard Assets\Characters\FirstPersonCharacter\Scripts\CustomCharacterController.cs" Line="90" Column="16" />
       <File FileName="Assets\Scripts\GrabbableBehavior.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameLogic.cs" Line="18" Column="27" />
+      <File FileName="Assets\Scripts\GameLogic.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\snowball.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Teleport.cs" Line="14" Column="10" />
-      <File FileName="Assets\Scripts\BouncingObstacle.cs" Line="11" Column="3" />
-      <File FileName="Assets\Scripts\TerrainBehavior.cs" Line="20" Column="3" />
+      <File FileName="Assets\Scripts\Teleport.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\BouncingObstacle.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\TerrainBehavior.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\BonusBehavior.cs" Line="54" Column="81" />
+      <File FileName="Assets\Scripts\BonusRotation.cs" Line="12" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
