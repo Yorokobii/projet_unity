@@ -15,6 +15,7 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
+          <e p="BonusBehavior.cs" t="Include" />
           <e p="BonusRotation.cs" t="Include" />
           <e p="BouncingObstacle.cs" t="Include" />
           <e p="Cube_spawner.cs" t="Include" />
