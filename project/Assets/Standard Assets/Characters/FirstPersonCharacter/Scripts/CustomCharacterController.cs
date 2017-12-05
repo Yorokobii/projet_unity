@@ -213,30 +213,30 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 		private void FixedUpdate()
 		{
+			Vector3 vec = new Vector3(m_RigidBody.velocity.x, 0, m_RigidBody.velocity.z);
+				
 			GroundCheck();
 			Vector2 input = GetInput();
 
 			if ((Mathf.Abs(input.x) > float.Epsilon || Mathf.Abs(input.y) > float.Epsilon))
 			{
 				Vector3 desiredMove = transform.forward*input.y + transform.right*input.x;
-				if (m_IsGrounded)
-					desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
-				else
-				{
-					desiredMove.y = 0;
-					desiredMove = desiredMove.normalized;
-				}
+				desiredMove = Vector3.ProjectOnPlane(desiredMove, m_GroundContactNormal).normalized;
 
 				desiredMove.x = desiredMove.x*movementSettings.CurrentTargetSpeed;
 				desiredMove.z = desiredMove.z*movementSettings.CurrentTargetSpeed;
 				desiredMove.y = desiredMove.y*movementSettings.CurrentTargetSpeed;
-				Debug.Log(desiredMove);
-				//if (m_RigidBody.velocity.sqrMagnitude <
-				Vector3 vec = new Vector3(m_RigidBody.velocity.x, 0, m_RigidBody.velocity.z);
+
+				
+				//SHITTY TWEAK
 				if (vec.sqrMagnitude <
-					(movementSettings.CurrentTargetSpeed*movementSettings.CurrentTargetSpeed))
+				    (movementSettings.CurrentTargetSpeed * movementSettings.CurrentTargetSpeed)
+				    || Vector3.Angle(vec, desiredMove) > 50)
 				{
-					m_RigidBody.AddForce(desiredMove*SlopeMultiplier(), ForceMode.Impulse);
+					if(m_IsGrounded)
+						m_RigidBody.AddForce(desiredMove * SlopeMultiplier(), ForceMode.Impulse);
+					else
+						m_RigidBody.AddForce(desiredMove /5, ForceMode.Impulse);
 				}
 			}
 
