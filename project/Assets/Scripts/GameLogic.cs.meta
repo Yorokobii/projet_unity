@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 fileFormatVersion: 2
 guid: 6ec90b44b12a65748957c311ff7be490
 timeCreated: 1512485775
@@ -15,3 +16,19 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+=======
+fileFormatVersion: 2
+guid: 6ec90b44b12a65748957c311ff7be490
+timeCreated: 1511531138
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - enemy: {fileID: 1225399822984020, guid: a3360f92dec6814489405ae4b907c753, type: 2}
+  - Cube: {fileID: 1286351990170336, guid: 88bbb4b5744bb45e5ad6963a987dd6f3, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+>>>>>>> Stashed changes
