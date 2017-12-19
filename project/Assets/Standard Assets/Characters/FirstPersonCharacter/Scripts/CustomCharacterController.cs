@@ -87,7 +87,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		private float m_grab_distance = 0.0f;
 		private GameObject m_grabbed_object = null;
 
+		public bool looking;
 		public int HP;
+		public int HP_Max = 5;
 		public float FireVelocity = 10f;
 		public int AmmoMax = 10;
 		private int m_current_ammo;
@@ -185,6 +187,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				else
 					DropObject ();
 			}
+
+			looking = LookingObject ();
 
 			if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
 			{
@@ -362,7 +366,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		}
 
 		void GrabObject(){
-			SetAmmo(AmmoMax);
 			RaycastHit hit;
 			if (Physics.Raycast (cam.transform.position, cam.transform.forward, out hit, max_grab_distance, LayerMask.GetMask ("Grabbable"))) {
 				m_grabbed_object = hit.collider.GetComponentInParent<Rigidbody>().gameObject;
@@ -372,6 +375,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				m_grabbed_object.GetComponentInParent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 				object_snap_point.transform.localRotation = m_grabbed_object.transform.rotation;
 			}
+		}
+
+		bool LookingObject(){
+			RaycastHit hit;
+			return !m_grabbed_object && Physics.Raycast (cam.transform.position, cam.transform.forward, out hit, max_grab_distance, LayerMask.GetMask ("Grabbable"));
 		}
 
 		void ThrowObject(){
@@ -405,6 +413,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			GetComponent<Rigidbody> ().velocity = Vector3.zero;
 			transform.position = m_reset_position;
 			transform.rotation = m_reset_rotation;
+		}
+
+		public void GainLife(int _hp){
+			HP += (HP+_hp)%HP_Max;
 		}
 
 		public void damage(int value){
