@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\GameLogic.cs" />
      <Compile Include="Assets\Scripts\GrabbableBehavior.cs" />
+     <Compile Include="Assets\Scripts\PauseController.cs" />
      <Compile Include="Assets\Scripts\Respawner.cs" />
      <Compile Include="Assets\Scripts\Teleport.cs" />
      <Compile Include="Assets\Scripts\TerrainBehavior.cs" />
