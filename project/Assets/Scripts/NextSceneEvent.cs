@@ -12,6 +12,10 @@ public class NextSceneEvent : MonoBehaviour {
 	public GameObject pause;
 	private bool done = false;
 	private float timer = -1;
+	public bool Enter_event;
+	public GameObject objectThatShouldEnter;
+	public bool object_destroy;
+	public GameObject objectToDestroy;
 
 	// Use this for initialization
 	void Start ()
@@ -23,6 +27,11 @@ public class NextSceneEvent : MonoBehaviour {
 	// Update is called once per frame
 	void Update()
 	{
+		if (object_destroy && !objectToDestroy) {
+			done = true;
+			object_destroy = false;
+		}
+
 		if (Input.GetKeyDown (KeyCode.Space) && explanations.activeInHierarchy) {
 			explanations.SetActive (false);
 			character.GetComponent<CustomCharacterController> ().enabled = true;
@@ -43,11 +52,11 @@ public class NextSceneEvent : MonoBehaviour {
 			pause.SetActive(true);
 
 //			SceneManager.LoadScene (nextScene);
-			SceneManager.LoadScene ("test_scene1");
+			SceneManager.LoadScene ("test_map1");
 		}
 	}
 
 	public void OnTriggerEnter(Collider other){
-		done = true;
+		if(Enter_event && other.gameObject == objectThatShouldEnter) done = true;
 	}
 }
