@@ -1,6 +1,6 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\NextSceneEvent.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\TerrainBehavior.cs">
     <Files>
       <File FileName="Assets\Scripts\Respawner.cs" Line="1" Column="1" />
       <File FileName="Assets\Standard Assets\Characters\FirstPersonCharacter\Scripts\CustomCharacterController.cs" Line="1" Column="1" />
@@ -8,7 +8,8 @@
       <File FileName="Assets\Scripts\GameLogic.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\PauseController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\HUDController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\NextSceneEvent.cs" Line="60" Column="62" />
+      <File FileName="Assets\Scripts\NextSceneEvent.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\TerrainBehavior.cs" Line="47" Column="94" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

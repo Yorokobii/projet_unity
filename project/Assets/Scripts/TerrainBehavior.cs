@@ -44,7 +44,7 @@ public class TerrainBehavior : MonoBehaviour {
 				case TypeTerrain.rebondissant:
 					{					
 						other.gameObject.GetComponent<CustomCharacterController> ().movementSettings.JumpForceTerrain 
-						= other.gameObject.GetComponent<CustomCharacterController> ().movementSettings.JumpForce/2;
+					= other.gameObject.GetComponent<CustomCharacterController> ().movementSettings.JumpForce;
 						break;
 					}
 			}
