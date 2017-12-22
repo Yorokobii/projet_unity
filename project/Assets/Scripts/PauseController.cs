@@ -27,6 +27,7 @@ public class PauseController : MonoBehaviour {
 	public void Pause(){
 		if(canvas.activeInHierarchy == false){
 			Cursor.visible = true;
+			Cursor.lockState = CursorLockMode.None;
 			canvas.SetActive(true);
 			Time.timeScale = 0;
 			Character.GetComponent<CustomCharacterController> ().enabled = false;

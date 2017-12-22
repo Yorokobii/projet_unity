@@ -5,17 +5,16 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public enum TypeBonus
 {
-	rapide,
+	ammo,
 	vie
 }
 public class BonusBehavior : MonoBehaviour {
 
 	public TypeBonus typeBonus;
-	public float dureeBonus = 5.0f;
+	public float dureeRespawnAmmo = 5.0f;
 	public int pointBonus;
 	private float timer;
 	private bool b = false;
-	private GameObject Char;
 
 	void Start(){
 		timer = 0.0f;
@@ -34,16 +33,14 @@ public class BonusBehavior : MonoBehaviour {
 
 		if (other.tag == "Character")
 		{
-			timer = Time.time + dureeBonus;
+			timer = Time.time + dureeRespawnAmmo;
 			switch (typeBonus)
 			{
-				case TypeBonus.rapide:
+				case TypeBonus.ammo:
 				{
 					if (!b)
 					{
-						Char = other.gameObject;
-						other.gameObject.GetComponent<CustomCharacterController> ().movementSettings.SpeedBonus 
-						= other.gameObject.GetComponent<CustomCharacterController> ().movementSettings.Speed * 3;
+						other.gameObject.GetComponent<CustomCharacterController> ().AddAmmo(pointBonus);
 						b = true;
 						gameObject.GetComponent<MeshRenderer> ().enabled = false;
 					}
@@ -63,9 +60,8 @@ public class BonusBehavior : MonoBehaviour {
 	{
 		switch (typeBonus)
 		{
-		case TypeBonus.rapide:
+		case TypeBonus.ammo:
 			{
-				Char.GetComponent<CustomCharacterController> ().movementSettings.SpeedBonus = 0;
 				gameObject.GetComponent<MeshRenderer> ().enabled = true;
 				break;
 			}

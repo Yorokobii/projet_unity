@@ -410,12 +410,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 		public void damage(int value){
 			HP -= value;
-			if (HP <= 0)
-				Die ();
 		}
 
-		private void Die(){
-			SceneManager.LoadScene (SceneManager.GetActiveScene().name);
+		public bool Dead(){
+			return HP <= 0;
 		}
 
 		public void KnockBack(Vector3 vel){
