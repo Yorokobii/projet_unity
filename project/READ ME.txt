@@ -1,24 +1,27 @@
-"Ok d'accord entrer entrez entrée ok fin" est un First Person Shooter à vagues où le but est de tuer tous les redoutables cylindres rouges à l'aide des boules de neige magiques (clic gauche).
+"Ok d'accord entrer entrez entrÃ©e ok fin" est un First Person Shooter Ã  niveaux oÃ¹ le but est de tuer tous les redoutables cylindres rouges Ã  l'aide des boules de neige magiques (clic gauche).
 
-Les ennemis présents dans la version alpha sont:
--Le Walker, un cylindre qui, une fois détecté le personnage, marche vers lui en essayant de lui faire des dégâts corps-à-corps;
--Le Runner, une sorte de walker plus athlétique et plus maigre qui court au lieu de marcher;
--Le Gros Porc, une sorte de walker moins athlétique, plus gros et plus résistant, qui marche plus lentement, mais qui fait plus de dégâts et qui est uniquement vulnérable à la tête.
+Les ennemis prÃ©sents dans la version beta sont:
+-Le Walker, un cylindre qui, une fois dÃ©tectÃ© le personnage, marche vers lui en essayant de lui faire des dÃ©gÃ ts corps-Ã -corps;
+-Le Runner, une sorte de walker plus athlÃ©tique et plus maigre qui court au lieu de marcher;
+-Le Gros Porc, une sorte de walker moins athlÃ©tique, plus gros et plus rÃ©sistant, qui marche plus lentement, mais qui fait plus de dÃ©gÃ ts et qui est uniquement vulnÃ©rable Ã  la tÃªte.
 
-Le décor est entièrement en gris/blanc, à l'exception des objets verts qui permettent une intéraction avec le joueur pour pouvoir atteindre des plateformes autrement inaccessibles. Une fois l'objet saisi (clic droit), le joueur peut:
+Le dÃ©cor est entiÃ¨rement en gris/blanc, Ã  l'exception des objets verts qui permettent une intÃ©raction avec le joueur pour pouvoir atteindre des plateformes autrement inaccessibles. Une fois l'objet saisi (clic droit), le joueur peut:
 -les tourner (R);
--les lâcher (clic droit à nouveau);
--les lancer pour faire des dégâts aux ennemis (clic gauche).
+-les lÃ¢cher (clic droit Ã  nouveau);
+-les lancer pour faire des dÃ©gÃ ts aux ennemis (clic gauche).
 
-Dans la version alpha il n'y a pas encore d'écran de victoire ou défaite, donc la scène se reset en cas de mort.
-
-Les ajouts futurs comprendront:
+Les ajouts / modifications pour la version finale:
 -Un pathfinding et une meilleure IA pour les ennemies;
--D'autres niveaux utilisant aussi d'autres types de sols;
--D'autres ennemis, comme des snipers ou même des boss;
--Un système de munitions, avec des bonus cachés dans les niveaux pour recharger les munitions;
--Les contrôles seront améliorés;
--Ajout de bon nombre d'affichages pour l'utilisateur;
+-Ajout des ennemis sniper et shooter et peut Ãªtre des boss;
+-Les niveaux du jeu;
+-Ajout de bruitages;
+-Ajout d'effets comme la boule de neige qui explose ou autre;
+-AmÃ©lioration des titres etc;
+-Peut Ãªtre ajout de quelques affichage utilisateur;
 -Et une histoire passionante!
 
-La scène la plus complète est test_map2. Veuillez la lancer pour tester le jeu.
+Un build est disponible dans le dossier Build. Sinon veuillez lancer la scÃ¨ne MainMenu pour lancer le jeu.
+
+Pour ce qui est de la rÃ©partition du travail dans l'Ã©quipe, Guillaume s'est principalement consacrÃ© au joueur, objets dynamiques et intÃ©raction entre les scÃ¨nes et menus;
+Nabil s'est occupÃ© de tous les types d'ennemis et leurs IA;
+et Tiphaine s'est occupÃ© de toute la crÃ©ation des niveaux, des bonus et des types de sols ainsi que le tÃ©lÃ©porteur.
