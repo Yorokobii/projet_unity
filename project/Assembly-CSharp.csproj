@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\GameLogic.cs" />
      <Compile Include="Assets\Scripts\GrabbableBehavior.cs" />
      <Compile Include="Assets\Scripts\HUDController.cs" />
+     <Compile Include="Assets\Scripts\MenuController.cs" />
      <Compile Include="Assets\Scripts\NextSceneEvent.cs" />
      <Compile Include="Assets\Scripts\PauseController.cs" />
      <Compile Include="Assets\Scripts\Respawner.cs" />

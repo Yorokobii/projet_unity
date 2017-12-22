@@ -313,17 +313,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			//avoids the mouse looking if the game is effectively paused
 			if (Mathf.Abs(Time.timeScale) < float.Epsilon) return;
 
-			// get the rotation before it's changed
-			float oldYRotation = transform.eulerAngles.y;
-
 			mouseLook.LookRotation (transform, cam.transform);
-
-//			if (m_IsGrounded || advancedSettings.airControl)
-//			{
-//				// Rotate the rigidbody velocity to match the new direction that the character is looking
-//				Quaternion velRotation = Quaternion.AngleAxis(transform.eulerAngles.y - oldYRotation, Vector3.up);
-//				m_RigidBody.velocity = velRotation*m_RigidBody.velocity;
-//			}
 		}
 
 		/// sphere cast down just beyond the bottom of the capsule to see if the capsule is colliding round the bottom
