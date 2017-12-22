@@ -51,8 +51,7 @@ public class NextSceneEvent : MonoBehaviour {
 			character.GetComponent<CustomCharacterController> ().enabled = true;
 			pause.SetActive(true);
 
-//			SceneManager.LoadScene (nextScene);
-			SceneManager.LoadScene ("test_map1");
+			SceneManager.LoadScene (nextScene);
 		}
 	}
 

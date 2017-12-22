@@ -361,7 +361,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				snowball.transform.position = cam.transform.position;
 				snowball.GetComponent<Rigidbody>().velocity = cam.transform.forward * FireVelocity;
 				m_current_ammo--;
-				Debug.Log(m_current_ammo.ToString());
 			}
 		}
 
@@ -431,6 +430,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 		public void KnockBack(Vector3 vel){
 			GetComponent<Rigidbody> ().AddForce (vel, ForceMode.Impulse);
+		}
+			
+		public bool Grabbing (){
+			return m_grabbed_object ? true : false;
 		}
 
 		public int GetAmmo()

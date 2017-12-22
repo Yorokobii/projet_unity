@@ -1,15 +1,15 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\TerrainBehavior.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\NextSceneEvent.cs">
     <Files>
       <File FileName="Assets\Scripts\Respawner.cs" Line="1" Column="1" />
-      <File FileName="Assets\Standard Assets\Characters\FirstPersonCharacter\Scripts\CustomCharacterController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Standard Assets\Characters\FirstPersonCharacter\Scripts\CustomCharacterController.cs" Line="436" Column="43" />
       <File FileName="Assets\Scripts\GrabbableBehavior.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\GameLogic.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\PauseController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\HUDController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\NextSceneEvent.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\TerrainBehavior.cs" Line="47" Column="94" />
+      <File FileName="Assets\Scripts\HUDController.cs" Line="26" Column="30" />
+      <File FileName="Assets\Scripts\NextSceneEvent.cs" Line="45" Column="27" />
+      <File FileName="Assets\Scripts\TerrainBehavior.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
