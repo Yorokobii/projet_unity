@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class snowball : MonoBehaviour {
 	private int x;
+	public GameObject particles;
 
 	// Use this for initialization
 	void Start () {
-		
 	}
 	
 	// Update is called once per frame
@@ -29,6 +29,8 @@ public class snowball : MonoBehaviour {
 			other.transform.parent.GetComponent<Enemy> ().damage (x);
 			other.transform.parent.GetComponent<Enemy> ().KnockBack (gameObject.GetComponent<Rigidbody> ().velocity);	
 		}
+		Instantiate(particles, transform.position, Quaternion.identity);
+		
 		Destroy(gameObject);
 	}
 }
