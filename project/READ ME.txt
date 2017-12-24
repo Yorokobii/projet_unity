@@ -5,7 +5,8 @@ Les ennemis présents dans la version beta sont:
 -Le Runner, une sorte de walker plus athlétique et plus maigre qui court au lieu de marcher;
 -Le Gros Porc, une sorte de walker moins athlétique, plus gros et plus résistant, qui marche plus lentement, mais qui fait plus de dégàts et qui est uniquement vulnérable à la tête.
 
-Le décor est entièrement en gris/blanc, à l'exception des objets verts qui permettent une intéraction avec le joueur pour pouvoir atteindre des plateformes autrement inaccessibles. Une fois l'objet saisi (clic droit), le joueur peut:
+Le décor est entièrement en gris/blanc, à l'exception des objets verts qui permettent une intéraction avec le joueur
+pour pouvoir atteindre des plateformes autrement inaccessibles et certains sols spéciaux. Une fois l'objet saisi (clic droit), le joueur peut:
 -les tourner (R);
 -les lâcher (clic droit à nouveau);
 -les lancer pour faire des dégàts aux ennemis (clic gauche).

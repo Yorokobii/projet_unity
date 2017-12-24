@@ -6,6 +6,8 @@ public class particle : MonoBehaviour
 {
 	private float timer;
 	public float aliveTime;
+	public Vector3 velocity;
+	public float speed;
 	
 	// Use this for initialization
 	void Start ()
@@ -16,6 +18,9 @@ public class particle : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
+
+		transform.Translate (velocity * speed * Time.deltaTime);
+
 		if (aliveTime > 0 || !gameObject.GetComponent<ParticleSystem>().isPlaying)
 			if(aliveTime <= 0 || timer <= Time.time)
 				Destroy(gameObject);

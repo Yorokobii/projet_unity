@@ -147,9 +147,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			m_current_ammo = AmmoMax;
 			m_rate_of_fire_timer = 0;
 			snap_position = object_snap_point.transform.localPosition;
+
+			//reset position used for respawning
 			m_reset_position = transform.position;
 			m_reset_rotation = transform.rotation;
 
+			//ignores collisions between the snowballs and the player
 			Physics.IgnoreLayerCollision (8, 9);
 
 			m_RigidBody = GetComponent<Rigidbody>();
@@ -188,6 +191,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 					DropObject ();
 			}
 
+			//checks if the player is looking at a grabbale object
 			looking = LookingObject ();
 
 			if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
@@ -196,6 +200,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			}
 
 			if (m_grabbed_object) {
+
+				//get closer or away the grabbed object
 				float tmp = CrossPlatformInputManager.GetAxis ("Mouse ScrollWheel") * 10;
 				if (tmp != 0)
 					m_grab_distance += tmp;
@@ -204,6 +210,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				if (m_grab_distance > 5)
 					m_grab_distance = 5;
 
+				//snaps the object to the player each frame
 				object_snap_point.transform.localPosition = new Vector3 (snap_position.x, snap_position.y, snap_position.z+m_grab_distance);
 				m_grabbed_object.transform.position = object_snap_point.transform.position;
 				m_grabbed_object.transform.rotation = object_snap_point.transform.rotation;
@@ -344,12 +351,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 		void FireSnowBall()
 		{
+			//if the ammo is enough and the fire cooldown is over
 			if (GetAmmo() > 0 && Time.time > m_rate_of_fire_timer)
 			{
 				m_rate_of_fire_timer = Time.time + RateOfFire;
+				//instanciates the snowball
 				GameObject snowball = (GameObject) Instantiate(snowball_prefab, transform.position, transform.rotation);
 				snowball.transform.position = cam.transform.position;
 				snowball.GetComponent<Rigidbody>().velocity = cam.transform.forward * FireVelocity;
+				//decreases the ammo
 				m_current_ammo--;
 			}
 		}
@@ -358,6 +368,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			RaycastHit hit;
 			if (Physics.Raycast (cam.transform.position, cam.transform.forward, out hit, max_grab_distance, LayerMask.GetMask ("Grabbable"))) {
 				m_grabbed_object = hit.collider.GetComponentInParent<Rigidbody>().gameObject;
+				//disables the root object of the grabbed object
+				//some objects are complex and the collider found may be a child of
+				//a root object so we need to find the root and disable it
 				foreach(Collider c in m_grabbed_object.GetComponentInParent<Rigidbody>().gameObject.GetComponentsInChildren<Collider>() ){
 					c.enabled = false;
 				}
@@ -366,6 +379,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			}
 		}
 
+		//returns true is what the player is looking at is grabbable
 		bool LookingObject(){
 			RaycastHit hit;
 			return !m_grabbed_object && Physics.Raycast (cam.transform.position, cam.transform.forward, out hit, max_grab_distance, LayerMask.GetMask ("Grabbable"));
