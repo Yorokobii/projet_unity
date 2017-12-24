@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\billboard.cs" />
     <Compile Include="Assets\Scripts\BonusBehavior.cs" />
     <Compile Include="Assets\Scripts\BonusRotation.cs" />
     <Compile Include="Assets\Scripts\BouncingObstacle.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Assets\Scripts\HUDController.cs" />
     <Compile Include="Assets\Scripts\MenuController.cs" />
     <Compile Include="Assets\Scripts\NextSceneEvent.cs" />
+    <Compile Include="Assets\Scripts\particle.cs" />
     <Compile Include="Assets\Scripts\PauseController.cs" />
     <Compile Include="Assets\Scripts\Respawner.cs" />
     <Compile Include="Assets\Scripts\snowball.cs" />

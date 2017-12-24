@@ -29,6 +29,8 @@
           <e p="Respawner.cs" t="Include" />
           <e p="Teleport.cs" t="Include" />
           <e p="TerrainBehavior.cs" t="Include" />
+          <e p="billboard.cs" t="Include" />
+          <e p="particle.cs" t="Include" />
           <e p="snowball.cs" t="Include" />
         </e>
         <e p="Standard Assets" t="Include">
