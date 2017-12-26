@@ -6,11 +6,11 @@ using UnityEngine.Networking;
 public class billboard : MonoBehaviour
 {
 
-	public GameObject character;
+	private GameObject character;
 	
 	// Use this for initialization
 	void Start () {
-		
+		character = GameObject.Find ("Character");
 	}
 	
 	// Update is called once per frame

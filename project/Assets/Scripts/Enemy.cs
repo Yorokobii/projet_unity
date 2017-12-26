@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour {
 	private float timer = -1;
 	private float timer_audio = -1;
 	private bool death_sound = true;
+	public GameObject damage_effect_pos;
+	public GameObject damage_effect;
 
 	public AudioClip walk;
 	public AudioClip damage_audio;
@@ -82,6 +84,8 @@ public class Enemy : MonoBehaviour {
 	}
 
 	public void damage(int value){
+		GameObject tmp = Instantiate (damage_effect, damage_effect_pos.transform.position, Quaternion.identity);
+		tmp.transform.Find("New Text").GetComponent<TextMesh> ().text = value.ToString();
 		HP -= value;
 		gameObject.GetComponent<AudioSource> ().clip=null;
 		if (HP > 0) {
