@@ -7,9 +7,15 @@
       <File FileName="Assets\Scripts\HUDController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\MenuController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\BonusBehavior.cs" Line="1" Column="1" />
+<<<<<<< Updated upstream
       <File FileName="Assets\Scripts\Enemy.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\snowball.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\PauseController.cs" Line="49" Column="21" />
+=======
+      <File FileName="Assets\Scripts\particle.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Enemy.cs" Line="78" Column="8" />
+      <File FileName="Assets\Scripts\snowball.cs" Line="1" Column="1" />
+>>>>>>> Stashed changes
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

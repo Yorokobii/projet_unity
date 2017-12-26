@@ -58,25 +58,24 @@ public class Enemy : MonoBehaviour {
 				if (dir.magnitude < range_shoot) {
 					if (timer == -1) 
 						timer = Time.time + 5;
-					laser_prefab.transform.localScale = new Vector3 (laser_prefab.transform.localScale.x, mag/2, laser_prefab.transform.localScale.z);
-//					laser_prefab.transform.position = new Vector3 (this.transform.position.x+tmp.x/2, this.transform.position.y+tmp.y/2, this.transform.position.z+tmp.z/2);
-//					laser_prefab.transform.rotation = Quaternion.Euler(new Vector3 (90, -(tmp.x+tmp.z)*2, 0));
+					laser_prefab.transform.localScale = new Vector3 (laser_prefab.transform.localScale.x, mag*4, laser_prefab.transform.localScale.z);
+					laser_prefab.transform.position = this.transform.position;
 
 					Vector3 targetDir = m_player.transform.position - laser_prefab.transform.position;
-					Vector3 newDir = Vector3.RotateTowards(laser_prefab.transform.up, targetDir, 360, 0.0F);
+					Vector3 newDir = Vector3.RotateTowards(laser_prefab.transform.forward, targetDir, 360, 0.0F);
 					Debug.DrawRay(laser_prefab.transform.position, newDir, Color.red);
 					Quaternion rot = Quaternion.LookRotation(newDir);
 					laser_prefab.transform.rotation = rot;
-
-
+					laser_prefab.transform.eulerAngles=new Vector3(laser_prefab.transform.eulerAngles.x+90, laser_prefab.transform.eulerAngles.y, laser_prefab.transform.eulerAngles.z);
+					this.transform.eulerAngles=new Vector3(0, -laser_prefab.transform.eulerAngles.x+laser_prefab.transform.eulerAngles.y, 90);
 					if (timer <= Time.time) {
 						//m_player.GetComponent<CustomCharacterController> ().damage (dmg);
 						timer = -1;
-//						laser_prefab.GetComponent<MeshRenderer> ().enabled = false;
+						//laser_prefab.GetComponentsInChildren<MeshRenderer> ().enabled = false;
 					}
 				} else {
 					timer = -1;
-//					laser_prefab.GetComponent<MeshRenderer> ().enabled = false;
+					//laser_prefab.GetComponentsInChildren<MeshRenderer> ().enabled = false;
 				}
 			}
 		}
