@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\Teleport.cs" />
      <Compile Include="Assets\Scripts\TerrainBehavior.cs" />
      <Compile Include="Assets\Scripts\billboard.cs" />
+     <Compile Include="Assets\Scripts\end_game.cs" />
      <Compile Include="Assets\Scripts\particle.cs" />
      <Compile Include="Assets\Scripts\snowball.cs" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />

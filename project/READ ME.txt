@@ -15,10 +15,6 @@ Les ajouts / modifications pour la version finale:
 -Un pathfinding et une meilleure IA pour les ennemies;
 -Ajout des ennemis sniper et shooter et peut être des boss;
 -Les niveaux du jeu;
--Ajout de bruitages;
--Ajout d'effets comme la boule de neige qui explose ou autre;
--Amélioration des titres etc;
--Peut être ajout de quelques affichage utilisateur;
 -Et une histoire passionante!
 
 Un build est disponible dans le dossier Build. Sinon veuillez lancer la scène MainMenu pour lancer le jeu.
