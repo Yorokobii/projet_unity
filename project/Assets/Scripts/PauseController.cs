@@ -10,6 +10,10 @@ public class PauseController : MonoBehaviour {
 	public GameObject canvas;
 	public GameObject Character;
 
+	void Start(){
+		//if the scene was loaded as the game was paused we need to make sure the audio is playing again
+		AudioListener.pause = false;
+	}
 
 	// Update is called once per frame
 	void Update () {
@@ -17,7 +21,7 @@ public class PauseController : MonoBehaviour {
 			Pause ();
 		}
 		if (canvas.activeInHierarchy) {
-			if (AudioListener.pause)
+			if (AudioListener.volume <= 0)
 				GameObject.Find ("Sound Mute").GetComponent<Text> ().text = "Unmute Sound";
 			else
 				GameObject.Find ("Sound Mute").GetComponent<Text> ().text = "Mute Sound";
@@ -31,12 +35,14 @@ public class PauseController : MonoBehaviour {
 			canvas.SetActive(true);
 			Time.timeScale = 0;
 			Character.GetComponent<CustomCharacterController> ().enabled = false;
+			AudioListener.pause = true;
 		}
 		else{
 			canvas.SetActive(false);
 			Time.timeScale = 1;
 			Character.GetComponent<CustomCharacterController> ().enabled = true;
 			Cursor.visible = false;
+			AudioListener.pause = false;
 		}
 	}
 
@@ -46,6 +52,9 @@ public class PauseController : MonoBehaviour {
 	}
 
 	public void Mute(){
-		AudioListener.pause = !AudioListener.pause;
+		if (AudioListener.volume > 0)
+			AudioListener.volume = 0;
+		else
+			AudioListener.volume = 1;
 	}
 }

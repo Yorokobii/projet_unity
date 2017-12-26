@@ -96,6 +96,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		public float RateOfFire = 1f;
 		private float m_rate_of_fire_timer = 0f;
 
+		public AudioClip damage_audio;
 		public GameObject object_snap_point;
 		private Vector3 snap_position;
 		public KeyCode RotateObjectKey = KeyCode.R;
@@ -423,6 +424,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		}
 
 		public void damage(int value){
+			gameObject.GetComponent<AudioSource> ().PlayOneShot (damage_audio);
 			HP -= value;
 		}
 

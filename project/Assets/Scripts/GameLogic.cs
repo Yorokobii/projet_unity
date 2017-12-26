@@ -12,7 +12,6 @@ public class GameLogic : MonoBehaviour {
 	private bool win = false;
 	private bool loose = false;
 	private float end_timer;
-	public float end_time;
 	public String WinScene;
 	public GameObject looseScreen;
 	public GameObject winScreen;
@@ -26,21 +25,27 @@ public class GameLogic : MonoBehaviour {
 	void Update () {
 		if (!win && !loose && KillAllEnemies && CheckAliveEnemies ()) {
 			win = true;
-			end_timer = Time.time + end_time;
+			end_timer = Time.time + winScreen.GetComponent<AudioSource>().clip.length;
 			winScreen.SetActive(true);
+			GameObject.Find ("PauseController").SetActive (false);
+			foreach (GameObject go in GameObject.FindGameObjectsWithTag("Enemy"))
+				go.SetActive (false);
 		}
 
 		if (!win && !loose && character.GetComponent<CustomCharacterController> ().Dead ()) {
 			loose = true;
-			end_timer = Time.time + end_time;
+			end_timer = Time.time + looseScreen.GetComponent<AudioSource>().clip.length;
 			looseScreen.SetActive(true);
+			GameObject.Find ("PauseController").SetActive (false);
+			foreach (GameObject go in GameObject.FindGameObjectsWithTag("Enemy"))
+				go.SetActive (false);
 		}
 
 		if (win){
-			if (end_timer <= Time.time)
+			if (end_timer <= Time.time || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
 				SceneManager.LoadScene (WinScene);
 		} else if (loose) {
-			if (end_timer <= Time.time)
+			if (end_timer <= Time.time || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
 				SceneManager.LoadScene ("MainMenu");
 		}
 
