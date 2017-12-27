@@ -43,52 +43,51 @@ public class Enemy : MonoBehaviour {
 			}
 			die ();
 		}
-
-		if ((timer_audio!=-1) && (timer_audio <= Time.time)) {
-			gameObject.GetComponent<AudioSource> ().clip = walk;
-			gameObject.GetComponent<AudioSource> ().Play();
-			timer_audio = -1;
-		}
-		Vector3 dir = m_player.transform.position - GetComponent<Rigidbody>().transform.position;
-		dir.y = 0;
-		if (dir.magnitude < range)
-		{
-			float mag = dir.magnitude;
-			Vector3 tmp = dir;
-			dir.Normalize();
-			transform.Translate(dir * Time.deltaTime * (speed / 100));
-			if (shoot)
-			{
-				//updates the position and dimension of the laser
-				laser_prefab.transform.localScale = new Vector3 (laser_prefab.transform.localScale.x, mag, laser_prefab.transform.localScale.z);
-				laser_prefab.transform.position = this.transform.position;
-				//updates its direction
-				Vector3 targetDir = m_player.transform.position - laser_prefab.transform.position;
-				Vector3 newDir = Vector3.RotateTowards(laser_prefab.transform.forward, targetDir, 360, 0.0F);
-				Debug.DrawRay(laser_prefab.transform.position, newDir, Color.red);
-				Quaternion rot = Quaternion.LookRotation(newDir);
-				laser_prefab.transform.rotation = rot;
-				laser_prefab.transform.eulerAngles=new Vector3(laser_prefab.transform.eulerAngles.x+90, laser_prefab.transform.eulerAngles.y, laser_prefab.transform.eulerAngles.z);
-				
-					this.transform.eulerAngles=new Vector3(0, -laser_prefab.transform.eulerAngles.x+laser_prefab.transform.eulerAngles.y, this.transform.eulerAngles.z);
-				
-				Debug.Log (laser_prefab.transform.GetChild (0).GetComponent<Laser> ().noObstacle);
-				Debug.Log (tmp.magnitude);
-				if ((tmp.magnitude < range_shoot)&&(laser_prefab.transform.GetChild (0).GetComponent<Laser> ().noObstacle)){
-					laser_prefab.transform.GetChild (0).GetComponent<MeshRenderer> ().enabled = true;
-					if (timer == -1)
-						timer = Time.time + 3;
+		else {
+			if ((timer_audio!=-1) && (timer_audio <= Time.time)) {
+				gameObject.GetComponent<AudioSource> ().clip = walk;
+				gameObject.GetComponent<AudioSource> ().Play();
+				timer_audio = -1;
+			}
+			Vector3 dir = m_player.transform.position - GetComponent<Rigidbody>().transform.position;
+			dir.y = 0;
+			if (dir.magnitude < range) {
+				float mag = dir.magnitude;
+				Vector3 tmp = dir;
+				dir.Normalize ();
+				transform.Translate (dir * Time.deltaTime * (speed / 100));
+				if (shoot) {
+					//updates the position and dimension of the laser
+					laser_prefab.transform.localScale = new Vector3 (laser_prefab.transform.localScale.x, mag, laser_prefab.transform.localScale.z);
+					laser_prefab.transform.position = this.transform.position;
+					//updates its direction
+					Vector3 targetDir = m_player.transform.position - laser_prefab.transform.position;
+					Vector3 newDir = Vector3.RotateTowards (laser_prefab.transform.forward, targetDir, 360, 0.0F);
+					Debug.DrawRay (laser_prefab.transform.position, newDir, Color.red);
+					Quaternion rot = Quaternion.LookRotation (newDir);
+					laser_prefab.transform.rotation = rot;
+					laser_prefab.transform.eulerAngles = new Vector3 (laser_prefab.transform.eulerAngles.x + 90, laser_prefab.transform.eulerAngles.y, laser_prefab.transform.eulerAngles.z);
+					if (speed == 0)
+						this.transform.eulerAngles = new Vector3 (0, -laser_prefab.transform.eulerAngles.x + laser_prefab.transform.eulerAngles.y, this.transform.eulerAngles.z);
 					
-					if (timer <= Time.time) {
+					Debug.Log (laser_prefab.transform.GetChild (0).GetComponent<Laser> ().noObstacle);
+					Debug.Log (tmp.magnitude);
+					if ((tmp.magnitude < range_shoot) && (laser_prefab.transform.GetChild (0).GetComponent<Laser> ().noObstacle)) {
+						laser_prefab.transform.GetChild (0).GetComponent<MeshRenderer> ().enabled = true;
+						if (timer == -1)
+							timer = Time.time + 3;
+						
+						if (timer <= Time.time) {
+							timer = -1;
+							m_player.GetComponent<CustomCharacterController> ().damage (dmg);
+							gameObject.GetComponent<AudioSource> ().PlayOneShot (hit);
+							laser_prefab.transform.GetChild (0).GetComponent<MeshRenderer> ().enabled = false;
+						}
+					
+					} else {
 						timer = -1;
-						m_player.GetComponent<CustomCharacterController> ().damage (dmg);
-						gameObject.GetComponent<AudioSource> ().PlayOneShot (hit);
 						laser_prefab.transform.GetChild (0).GetComponent<MeshRenderer> ().enabled = false;
 					}
-				
-				} else {
-					timer = -1;
-					laser_prefab.transform.GetChild (0).GetComponent<MeshRenderer> ().enabled = false;
 				}
 			}
 		}
@@ -123,8 +122,10 @@ public class Enemy : MonoBehaviour {
 	}
 
 	public void die(){
-		if (timer_audio==-1)
+		if (timer_audio == -1) {
+			Destroy (laser_prefab);
 			timer_audio = Time.time + death.length;
+		}
 		if (timer_audio > Time.time)
 			gameObject.GetComponent<Rigidbody> ().detectCollisions = false;
 		else {
