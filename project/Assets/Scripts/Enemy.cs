@@ -90,6 +90,10 @@ public class Enemy : MonoBehaviour {
 					}
 				}
 			}
+			else if (shoot) {
+				timer = -1;
+				laser_prefab.transform.GetChild (0).GetComponent<MeshRenderer> ().enabled = false;
+			}
 		}
 	}
 

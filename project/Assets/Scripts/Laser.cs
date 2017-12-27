@@ -18,11 +18,11 @@ public class Laser : MonoBehaviour {
 
 	void OnTriggerStay (Collider other) { //other is the other object colliding with the laser
 		//Detects if there is an obstacle
-		Debug.Log (other);
-		if ((!other.CompareTag ("Character"))&&(!other.CompareTag ("Head"))) {
+		Debug.Log (other + other.tag);
+		if ((other.tag !=("Character"))&&(other.tag !="Head")) {
 			noObstacle = false;
 
-		} else
+		} else if(other.tag=="Character")
 			noObstacle = true;
 
 	}
