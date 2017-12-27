@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour {
 
 	public AudioClip walk;
 	public AudioClip damage_audio;
+	public AudioClip hit;
 	public AudioClip death;
 
 	// Use this for initialization
@@ -79,8 +80,9 @@ public class Enemy : MonoBehaviour {
 						timer = Time.time + 3;
 					
 					if (timer <= Time.time) {
-						m_player.GetComponent<CustomCharacterController> ().damage (dmg);
 						timer = -1;
+						m_player.GetComponent<CustomCharacterController> ().damage (dmg);
+						gameObject.GetComponent<AudioSource> ().PlayOneShot (hit);
 						laser_prefab.transform.GetChild (0).GetComponent<MeshRenderer> ().enabled = false;
 					}
 				
