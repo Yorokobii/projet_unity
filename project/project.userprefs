@@ -1,21 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Laser.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\KeepOnPlatform.cs">
     <Files>
-<<<<<<< Updated upstream
-      <File FileName="Assets\Scripts\Enemy.cs" Line="73" Column="88" />
-      <File FileName="Assets\Scripts\billboard.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\end_game.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\snowball.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Laser.cs" Line="22" Column="7" />
-=======
-      <File FileName="Assets\Scripts\Enemy.cs" Line="103" Column="15" />
-      <File FileName="Assets\Scripts\billboard.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\end_game.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\snowball.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Laser.cs" Line="22" Column="59" />
-      <File FileName="Assets\Scripts\BouncingObstacle.cs" Line="10" Column="3" />
->>>>>>> Stashed changes
+      <File FileName="Assets\Scripts\movingPlatform.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\KeepOnPlatform.cs" Line="2" Column="34" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
